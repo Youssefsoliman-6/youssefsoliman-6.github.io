@@ -1,0 +1,856 @@
+Here is the updated code for your portfolio website. All your new resume information—including the 12 detailed projects, updated technical skills, expected graduation date, and expanded certifications—has been integrated into your original code while strictly retaining its design, animations, typography, and color palette.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Youssef Ahmed Elsayed — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0a0f1e;
+    --navy2: #111827;
+    --accent: #c8a96e;
+    --accent2: #e8c98e;
+    --light: #f5f0e8;
+    --muted: #8a8fa0;
+    --card: #141b2d;
+    --border: rgba(200,169,110,0.18);
+    --white: #ffffff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--light);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(10,15,30,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    gap: 4rem;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    right: 0; top: 10%;
+    width: 50vw; height: 80vh;
+    background: radial-gradient(ellipse at center, rgba(200,169,110,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-text { position: relative; z-index: 1; }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-name span { color: var(--accent); }
+
+  .hero-title {
+    font-size: 1.1rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+    font-weight: 300;
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+    color: rgba(245,240,232,0.7);
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--navy);
+    padding: 0.85rem 2rem;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.3s, transform 0.2s;
+  }
+
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    padding: 0.85rem 2rem;
+    border: 1px solid var(--accent);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+  }
+
+  .btn-outline:hover {
+    background: rgba(200,169,110,0.1);
+    transform: translateY(-2px);
+  }
+
+  /* ── HERO IMAGE ── */
+  .hero-image-wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+  }
+
+  .hero-image-frame {
+    position: relative;
+    width: 380px;
+    height: 480px;
+  }
+
+  .hero-image-frame::before {
+    content: '';
+    position: absolute;
+    top: -15px; right: -15px;
+    width: 100%; height: 100%;
+    border: 1.5px solid var(--accent);
+    opacity: 0.4;
+    z-index: 0;
+  }
+
+  .hero-image-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,15,30,0.6) 0%, transparent 50%);
+    z-index: 2;
+  }
+
+  .hero-image-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    position: relative;
+    z-index: 1;
+    filter: grayscale(20%) contrast(1.05);
+  }
+
+  .hero-badge {
+    position: absolute;
+    bottom: -20px;
+    left: -20px;
+    background: var(--accent);
+    color: var(--navy);
+    padding: 1rem 1.5rem;
+    z-index: 3;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── SECTION BASE ── */
+  section {
+    padding: 7rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 3rem;
+  }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--navy2); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5px;
+    background: var(--border);
+    border: 1.5px solid var(--border);
+  }
+
+  .skill-card {
+    background: var(--navy2);
+    padding: 2rem;
+    transition: background 0.3s;
+  }
+
+  .skill-card:hover { background: var(--card); }
+
+  .skill-icon {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .skill-cat {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .skill-list {
+    font-size: 0.9rem;
+    color: rgba(245,240,232,0.8);
+    line-height: 1.9;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5px;
+    background: var(--border);
+    border: 1.5px solid var(--border);
+  }
+
+  .project-card {
+    background: var(--navy);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-card:hover { background: var(--card); }
+
+  .project-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: rgba(200,169,110,0.08);
+    position: absolute;
+    top: 1.5rem; right: 2rem;
+    line-height: 1;
+    user-select: none;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 0.5px solid rgba(200,169,110,0.3);
+    padding: 0.2rem 0.6rem;
+  }
+
+  .project-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+  }
+
+  .project-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    flex: 1;
+  }
+
+  .project-link {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: gap 0.3s;
+    margin-top: auto;
+  }
+
+  .project-link:hover { gap: 0.9rem; }
+
+  .project-link::after { content: '→'; }
+
+  /* ── CERTS ── */
+  #certifications { background: var(--navy2); }
+
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .cert-card {
+    border: 1px solid var(--border);
+    padding: 2rem;
+    background: var(--navy);
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .cert-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+  }
+
+  .cert-issuer {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .cert-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  .cert-date {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  .cert-link {
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: gap 0.3s;
+  }
+
+  .cert-link:hover { gap: 0.8rem; }
+  .cert-link::after { content: '→'; }
+
+  /* ── CONTACT ── */
+  #contact {
+    text-align: center;
+    padding: 8rem 4rem;
+  }
+
+  .contact-inner {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .contact-email {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    color: var(--white);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 0.3rem;
+    display: inline-block;
+    margin: 2rem 0;
+    transition: color 0.3s;
+  }
+
+  .contact-email:hover { color: var(--accent); }
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .social-links a {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .social-links a:hover { color: var(--accent); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2rem 4rem;
+    border-top: 0.5px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: var(--accent);
+    margin: 0 0 3rem;
+    opacity: 0.4;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-eyebrow { animation: fadeUp 0.6s ease both; }
+  .hero-name    { animation: fadeUp 0.6s 0.15s ease both; }
+  .hero-title   { animation: fadeUp 0.6s 0.25s ease both; }
+  .hero-desc    { animation: fadeUp 0.6s 0.35s ease both; }
+  .hero-ctas    { animation: fadeUp 0.6s 0.45s ease both; }
+  .hero-image-wrap { animation: fadeUp 0.8s 0.3s ease both; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.2rem; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 4rem; gap: 3rem; }
+    .hero-image-frame { width: 280px; height: 360px; }
+    section { padding: 4rem 1.5rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Y.A.E</a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Portfolio</p>
+    <h1 class="hero-name">Youssef<br><span>Ahmed</span><br>Elsayed</h1>
+    <p class="hero-title">AI Developer &amp; Software Engineer · CS @ Misr International University</p>
+    <p class="hero-desc">Building intelligent systems and elegant software. Passionate about machine learning, data analysis, embedded systems, and full-stack development.</p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="https://drive.google.com/file/d/1KoGsKO59y6ElkvttmX1lKc2d9wr_0pUN/view?usp=drive_link" target="_blank" class="btn-outline">Download CV</a>
+    </div>
+  </div>
+
+  <div class="hero-image-wrap">
+  <div class="hero-image-frame">
+    <img src="C:\Users\Soliman\OneDrive\Desktop\Resume\My Photo.jpeg" alt="Youssef Ahmed Elsayed Profile Pic">
+    <div class="hero-badge">Expected Grad: 2027</div>
+  </div>
+</div>
+</section>
+
+<section id="skills">
+  <div class="contact-inner" style="max-width:100%; text-align:left;">
+    <p class="section-label">Expertise</p>
+    <h2 class="section-title">Technical Skills</h2>
+  </div>
+  <div class="skills-grid">
+    
+    <div class="skill-card">
+      <span class="skill-icon">💻</span>
+      <p class="skill-cat">Languages</p>
+      <p class="skill-list">Python, Java, C++, PHP, JavaScript, SQL, HTML, CSS</p>
+    </div>
+
+    <div class="skill-card">
+      <span class="skill-icon">📦</span>
+      <p class="skill-cat">Frameworks &amp; Libraries</p>
+      <p class="skill-list">Scikit-learn, OpenCV, Node.js, Express.js, Pandas, NumPy, Matplotlib, XGBoost</p>
+    </div>
+
+    <div class="skill-card">
+      <span class="skill-icon">🗄️</span>
+      <p class="skill-cat">Databases</p>
+      <p class="skill-list">MySQL</p>
+    </div>
+
+    <div class="skill-card">
+      <span class="skill-icon">🛠️</span>
+      <p class="skill-cat">Tools &amp; Platforms</p>
+      <p class="skill-list">Git, GitHub, Arduino IDE, XAMPP, Cisco Packet Tracer, Jupyter Notebook, Wokwi, Tinkercad</p>
+    </div>
+
+    <div class="skill-card" style="grid-column: span 1;">
+      <span class="skill-icon">🧠</span>
+      <p class="skill-cat">Core Concepts</p>
+      <p class="skill-list">Machine Learning, Data Analysis, Embedded Systems, IoT, OOP, MVC Architecture, REST APIs, Authentication Systems, Genetic Algorithms</p>
+    </div>
+
+  </div>
+</section>
+
+<section id="projects">
+  <p class="section-label">Selected Work</p>
+  <h2 class="section-title">Case Studies &amp; Projects</h2>
+
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-number">01</div>
+      <div class="project-tags">
+        <span class="tag">Arduino</span>
+        <span class="tag">C++</span>
+        <span class="tag">RFID</span>
+        <span class="tag">IoT</span>
+      </div>
+      <h3 class="project-name">Smart Security Door Lock System</h3>
+      <p class="project-desc">Developed a multi-phase Arduino-based smart security system with RFID authentication, PIN verification, EEPROM persistence, and role-based access control. Implemented advanced security features including lockout protection, panic alarm system, RFID admin recovery, and servo-based smart locking.</p>
+      <a href="https://github.com/Youssefsoliman-6/Smart-Security-Door-Lock-System" target="_blank" class="project-link">GitHub</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-number">02</div>
+      <div class="project-tags">
+        <span class="tag">PHP</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">Full-Stack</span>
+      </div>
+      <h3 class="project-name">JazzCO Music Streaming Platform</h3>
+      <p class="project-desc">Engineered a full-stack music streaming platform featuring authentication, playlist management, AJAX search, responsive audio player, and admin dashboard. Implemented MP3 uploads, dark/light mode, queue persistence, favorites system, and playlist CRUD operations alongside a relational MySQL database structure.</p>
+      <a href="https://github.com/Youssefsoliman-6/jazzco" target="_blank" class="project-link">GitHub</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-number">03</div>
+      <div class="project-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Scikit-learn</span>
+        <span class="tag">XGBoost</span>
+        <span class="tag">ML</span>
+      </div>
+      <h3 class="project-name">Diabetes Prediction Pipeline</h3>
+      <p class="project-desc">Built an ML pipeline for diabetes prediction using medical datasets and classification algorithms. Performed preprocessing, feature engineering, model training, GridSearchCV optimization, and comprehensive evaluation across algorithms like Random Forest, SVM, XGBoost, MLP Neural Networks, Logistic Regression, and KNN.</p>
+      <a href="https://github.com/Youssefsoliman-6/Diabetes-Prediction-Machine-Learning" target="_blank" class="project-link">GitHub</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-number">04</div>
+      <div class="project-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Genetic Algorithms</span>
+        <span class="tag">Neural Networks</span>
+      </div>
+      <h3 class="project-name">Hotel Booking Cancellation Prediction</h3>
+      <p class="project-desc">Built a machine learning pipeline to predict hotel booking cancellations and optimized Recall using MLP Neural Networks. Implemented Genetic Algorithms for evolutionary feature selection and performed extensive exploratory data analysis.</p>
+      <a href="https://github.com/Youssefsoliman-6/Hotel-Booking-Prediction" target="_blank" class="project-link">GitHub</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-number">05</div>
+      <div class="project-tags">
+        <span class="tag">Java</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">MVC Architecture</span>
+      </div>
+      <h3 class="project-name">Car Recommender System</h3>
+      <p class="project-desc">Architected a recommendation-based web application using MVC architecture with secure Admin/User authentication. Developed recommendation logic, favorites management, and dynamic navigation fully integrated with backend MySQL databases.</p>
+      <a href="https://github.com/Youssefsoliman-6/Car-Recommender-System" target="_blank" class="project-link">GitHub</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-number">06</div>
+      <div class="project-tags">
+        <span class="tag">Python</span>
+        <span class="tag">OpenCV</span>
+        <span class="tag">Computer Vision</span>
+      </div>
+      <h3 class="project-name">Image Blur Detection</h3>
+      <p class="project-desc">Developed a computer vision system to classify sharp and blurred images using Variance of Laplacian and FFT-based (Fast Fourier Transform) techniques. Applied custom image preprocessing and machine learning methods for automated image quality analysis.</p>
+      <a href="https://github.com/Youssefsoliman-6/image-blur-detection-ml" target="_blank" class="project-link">GitHub</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-number">07</div>
+      <div class="project-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Scikit-learn</span>
+        <span class="tag">Pandas</span>
+        <span class="tag">Regression</span>
+      </div>
+      <h3 class="project-name">Laptop Price Prediction</h3>
+      <p class="project-desc">Built a regression-based machine learning system for laptop price prediction using multiple predictive models. Performed extensive preprocessing, feature engineering, and model evaluation to significantly improve price prediction performance.</p>
+      <a href="https://github.com/Youssefsoliman-6/Laptop-Price-Prediction" target="_blank" class="project-link">GitHub</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-number">08</div>
+      <div class="project-tags">
+        <span class="tag">Cisco Packet Tracer</span>
+        <span class="tag">Networking</span>
+        <span class="tag">VLANs</span>
+      </div>
+      <h3 class="project-name">Network Infrastructure Project</h3>
+      <p class="project-desc">Designed and configured an enterprise-level network infrastructure including VLANs, routing, trunking, and systematic IP addressing. Implemented corporate network segmentation and communication protocols using Cisco Packet Tracer simulations.</p>
+      <a href="https://github.com/Youssefsoliman-6/Network-Infrastructure-Project" target="_blank" class="project-link">GitHub</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-number">09</div>
+      <div class="project-tags">
+        <span class="tag">Java</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">Desktop App</span>
+      </div>
+      <h3 class="project-name">Online Exam System</h3>
+      <p class="project-desc">Developed a desktop-based examination platform featuring completely separate Instructor and Student portals. Implemented robust authentication, exam management, question handling, and automatic result processing functionalities integrated with MySQL databases.</p>
+      <a href="https://github.com/Youssefsoliman-6/Online-Exam-System" target="_blank" class="project-link">GitHub</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-number">10</div>
+      <div class="project-tags">
+        <span class="tag">C++</span>
+        <span class="tag">Algorithms</span>
+        <span class="tag">Benchmarking</span>
+      </div>
+      <h3 class="project-name">Edit Distance Algorithms</h3>
+      <p class="project-desc">Implemented and benchmarked Brute Force, Dynamic Programming, and Divide &amp; Conquer approaches for edit distance computation. Analyzed algorithmic time/space complexity and performance differences across multiple implementations.</p>
+      <a href="https://github.com/Youssefsoliman-6/Edit-Distance-Algorithms-in-C-" target="_blank" class="project-link">GitHub</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-number">11</div>
+      <div class="project-tags">
+        <span class="tag">C++</span>
+        <span class="tag">File Handling</span>
+        <span class="tag">Data Structures</span>
+      </div>
+      <h3 class="project-name">Music Store System</h3>
+      <p class="project-desc">Developed a console-based music store management system with secure user authentication, album inventory management, and shopping cart functionality. Implemented searching by artist, genre, or name, alongside processing file I/O operations to handle persistent data.</p>
+      <a href="https://github.com/Youssefsoliman-6/Music-Store-System" target="_blank" class="project-link">GitHub</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-number">12</div>
+      <div class="project-tags">
+        <span class="tag">C++</span>
+        <span class="tag">HashMap</span>
+        <span class="tag">Linked Lists</span>
+      </div>
+      <h3 class="project-name">Task Organizer / To-Do List</h3>
+      <p class="project-desc">Implemented a custom task management system using a tailored HashMap with chaining for efficient category-based organization. Designed linked-list structures to manage user duties dynamically across customizable buckets with a menu-driven console UI.</p>
+      <a href="https://github.com/Youssefsoliman-6/To-Do-List" target="_blank" class="project-link">GitHub</a>
+    </div>
+
+  </div>
+</section>
+
+<section id="certifications">
+  <p class="section-label">Validation</p>
+  <h2 class="section-title">Certifications</h2>
+
+  <div class="certs-grid">
+
+    <div class="cert-card">
+      <p class="cert-issuer">IBM SkillsBuild</p>
+      <h3 class="cert-name">Data Fundamentals</h3>
+      <p class="cert-date">Certificate of Completion</p>
+      <a href="https://drive.google.com/file/d/1t8eYgNRn6bk7WzDuzqZS2CG1tERzY2Zv/view?usp=drive_link" target="_blank" class="cert-link">View Certificate</a>
+    </div>
+
+    <div class="cert-card">
+      <p class="cert-issuer">IBM SkillsBuild</p>
+      <h3 class="cert-name">Project Management Fundamentals</h3>
+      <p class="cert-date">Certificate of Completion</p>
+      <a href="https://drive.google.com/file/d/1mnOXGtywpFKZ34aiTMwONRcQ3RJzXnAE/view?usp=drive_link" target="_blank" class="cert-link">View Certificate</a>
+    </div>
+
+    <div class="cert-card">
+      <p class="cert-issuer">NVIDIA</p>
+      <h3 class="cert-name">Fundamentals of Deep Learning</h3>
+      <p class="cert-date">Certificate of Completion</p>
+      <a href="https://drive.google.com/file/d/1a8JCVaLWUblmGYHGAYqOMMlv9IGHIpXv/view?usp=drive_link" target="_blank" class="cert-link">View Certificate</a>
+    </div>
+
+    <div class="cert-card">
+      <p class="cert-issuer">Huawei ICT Academy</p>
+      <h3 class="cert-name">HCIA-AI V3.5 Course</h3>
+      <p class="cert-date">August 2025 · Certificate of Completion</p>
+      <a href="https://drive.google.com/file/d/1vz4YgNeQGnYYF1OV5vssSk9Ofcv84vRb/view?usp=drive_link" target="_blank" class="cert-link">View Certificate</a>
+    </div>
+
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-inner">
+    <p class="section-label" style="justify-content:center;">Get in Touch</p>
+    <h2 class="section-title" style="margin-bottom:1rem;">Let's Work Together</h2>
+    <p style="color:var(--muted); font-size:0.95rem; margin-bottom:1rem;">Open to internships, collaborations, and new opportunities.</p>
+    <a href="mailto:youssef.soliman05@gmail.com" class="contact-email">youssef.soliman05@gmail.com</a>
+    <div class="social-links">
+      <a href="https://www.linkedin.com/in/youssef-solimann66/?skipRedirect=true" target="_blank">LinkedIn</a>
+      <a href="https://github.com/Youssefsoliman-6" target="_blank">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 Youssef Ahmed Elsayed. All rights reserved.</p>
+  <p>Cairo, Egypt</p>
+</footer>
+
+</body>
+</html>
+
+```
